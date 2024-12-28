@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  dbredis:
+    image: redis:latest
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/data
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm
+    volumes:
+      - ../..:/workspaces:cached
+    network_mode: service:dbredis
+    command: sleep infinity
+volumes:
+  postgres-data:
